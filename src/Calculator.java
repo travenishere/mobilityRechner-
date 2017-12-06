@@ -87,16 +87,34 @@ public class Calculator {
 	
 	/**
 	 * 
+	 * @param startDateTime
 	 */
-	public void setStartDateTime() {
-		startDateTime = parseStringToDateformat(readInput("Start time"));
+	public void setStartDateTime(final LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
 	}
 	
 	/**
 	 * 
+	 * @param startDateTime
 	 */
-	public void setEndDateTime() {
-		endDateTime = parseStringToDateformat(readInput("End time"));		
+	public void setStartDateTime(final String startDateTime) {
+		this.startDateTime = parseStringToDateformat(startDateTime);
+	}
+	
+	/**
+	 * 
+	 * @param endDateTime
+	 */
+	public void setEndDateTime(final LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;		
+	}
+	
+	/**
+	 * 
+	 * @param endDateTime
+	 */
+	public void setEndDateTime(final String endDateTime) {
+		this.endDateTime = parseStringToDateformat(endDateTime);
 	}
 	
 	/**
@@ -113,26 +131,6 @@ public class Calculator {
 	 */
 	public LocalDateTime getEndDateTime() {
 		return endDateTime;
-	}
-	
-	/**
-	 * 
-	 * @param startDateTime
-	 */
-	public void parseStartDateTime(final String startDateTime) {
-		
-		// TODO
-		
-	}
-	
-	/**
-	 * 
-	 * @param endDateTime
-	 */
-	public void parseEndDateTime(final String endDateTime) {
-		
-		// TODO
-		
 	}
 	
 	/**
