@@ -61,7 +61,5 @@ public class DBConnect {
 		return kmTar;
 	}
 	
-		
-	
 	
 }
