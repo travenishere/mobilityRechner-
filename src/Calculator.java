@@ -85,34 +85,66 @@ public class Calculator {
 		return localDate; 		
 	}
 	
-	// TODO
+	/**
+	 * 
+	 */
 	public void setStartDateTime() {
-		startDateTime = parseStringToDateformat(readInput("Start time")); 
-		
-		
+		startDateTime = parseStringToDateformat(readInput("Start time"));
 	}
 	
-	// TODO
+	/**
+	 * 
+	 */
 	public void setEndDateTime() {
 		endDateTime = parseStringToDateformat(readInput("End time"));		
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public LocalDateTime getStartDateTime() {
-		return startDateDime;
+		return startDateTime;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public LocalDateTime getEndDateTime() {
 		return endDateTime;
 	}
 	
-	// TODO
+	/**
+	 * 
+	 * @param startDateTime
+	 */
+	public void parseStartDateTime(final String startDateTime) {
+		
+		// TODO
+		
+	}
+	
+	/**
+	 * 
+	 * @param endDateTime
+	 */
+	public void parseEndDateTime(final String endDateTime) {
+		
+		// TODO
+		
+	}
+	
+	/**
+	 * 
+	 */
 	public void calculateHours() {
 		timeAmount = (Duration.between(startDateTime, endDateTime).toMinutes()/60.00);
 	}
 	
-	
-	// Prints output
+	/**
+	 * print output
+	 */
 	public void printOutResult(){
 	System.out.println("TIME COSTS \n Duration: " + timeAmount +" h"+ "\n Tarif: "+hrPrice+" sFr/h."+"\n Total: " + timeAmount* hrPrice+" sFr." );
 	System.out.println("KM COSTS \n Km: " + kmAmount + "\n Tarif: "+kmPrice+" sFr./km \n Total: " + kmAmount* kmPrice+" sFr." );
