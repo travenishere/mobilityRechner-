@@ -1,4 +1,5 @@
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Run {
 	
@@ -10,24 +11,24 @@ public class Run {
 		
 		
 		// start date time
-		LocalDateTime startDateTime = c1.parseStringToDateformat(c1.readInput("starting reservation")); 
-		c1.startDateTime = startDateTime;
+		c1.setStartDateTime();
+		//LocalDateTime startDateTime = c1.parseStringToDateformat(c1.readInput("starting reservation")); 
+		
 		
 		// end date time
-		LocalDateTime endDateTime= c1.parseStringToDateformat(c1.readInput("ending reservation"));
-		c1.endDateTime =  endDatetime;
+		c1.setEndDateTime();
+		//LocalDateTime endDateTime= c1.parseStringToDateformat(c1.readInput("ending reservation"));
+		
 		
 		// choose category
 		c1.chooseCategory();
 		
 		// calculate hours
-		c1.timeAmount = (Duration.between(c1.startDateTime, c1.endDateTime).toMinutes()/60.00);
+		c1.calculateHours();
 		
 		
 		// print to console
-		System.out.println("TIME COSTS \n Duration: " + c1.timeAmount +" h"+ "\n Tarif: "+hrPrice+" sFr."+"\n Total: " + c1.timeAmount* hrPrice+" sFr." );
-		System.out.println("KM COSTS \n Km: " + c1.kmAmount + "\n Tarif: "+kmPrice+" sFr.\n Total: " + c1.kmAmount* kmPrice+" sFr." );
-		System.out.println("TOTAL COSTS: "+(c1.timeAmount* hrPrice + c1.kmAmount* kmPrice+" sFr." )); 
+		c1.printOutResult();
 		
 	}
 	
