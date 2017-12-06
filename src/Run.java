@@ -11,14 +11,12 @@ public class Run {
 		
 		
 		// start date time
-		c1.setStartDateTime();
-		//LocalDateTime startDateTime = c1.parseStringToDateformat(c1.readInput("starting reservation")); 
-		
+		c1.setStartDateTime(c1.readInput("starting reservation"));
+				
 		
 		// end date time
-		c1.setEndDateTime();
-		//LocalDateTime endDateTime= c1.parseStringToDateformat(c1.readInput("ending reservation"));
-		
+		c1.setEndDateTime(c1.readInput("ending reservation"));
+				
 		
 		// choose category
 		c1.chooseCategory();
