@@ -10,5 +10,20 @@ public class GeneralTest {
 	public void test() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void setAndGetStartDateTime() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void setAndGetEndDateTime() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
 
 }

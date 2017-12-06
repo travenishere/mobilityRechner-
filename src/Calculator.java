@@ -38,7 +38,7 @@ public class Calculator {
 		kmPrice = 0.00;
 		kmAmount = 5.5; //Will later on be set correctly, as for now fixed.
 		
-		}
+	}
 	
 	/**
 	 * Sets Start- and Endtime from Userinput. 
@@ -95,6 +95,15 @@ public class Calculator {
 	// TODO
 	public void setEndDateTime(final LocalDateTime enddatetime) {
 		
+	}
+	
+	
+	public LocalDateTime getStartDateTime() {
+		return startDateDime;
+	}
+	
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
 	}
 	
 	// TODO

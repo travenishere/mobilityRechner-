@@ -21,8 +21,8 @@ public class TimePeriod {
 	
 	/**
 	 * 
-	 * @param start
-	 * @param end
+	 * @param starttime
+	 * @param endtime
 	 */
 	public TimePeriod(final LocalDateTime start, final LocalDateTime end) {
 		this.start = start;
@@ -41,7 +41,7 @@ public class TimePeriod {
 	
 	/**
 	 * 
-	 * @param start
+	 * @param starttime
 	 */
 	public void setStart(final LocalDateTime start) {
 		this.start = start;
@@ -50,7 +50,7 @@ public class TimePeriod {
 	
 	/**
 	 * 
-	 * @param end
+	 * @param endtime
 	 */
 	public void setEnd(final LocalDateTime end) {
 		this.end = end;
@@ -59,7 +59,7 @@ public class TimePeriod {
 	
 	/**
 	 * 
-	 * @return
+	 * @return starttime
 	 */
 	public LocalDateTime getStart() {
 		return start;
@@ -67,7 +67,7 @@ public class TimePeriod {
 	
 	/**
 	 * 
-	 * @return
+	 * @return endtime
 	 */
 	public LocalDateTime getEnd() {
 		return end;
