@@ -1,3 +1,4 @@
+package main;
 /**
  * Calculates basic tascs 
  * @author Michael Yoseph
