@@ -22,12 +22,13 @@ public class DBConnect {
 	
 	public void getCategories() {
 		try{
-			String query = "SELECT * from mr_fzkat";
+			String query = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 			rs = st.executeQuery(query);
 			while(rs.next()){
 				String id = rs.getString("FZKAT_ID");
 				String name = rs.getString("FZKAT_Name");
-				System.out.println("Nr: " + id+ " Category: "+name);
+				String preis = rs.getString("TAR_STD");
+				System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );
 			}
 		}catch(Exception ex){
 			System.out.println("Error: "+ ex);
