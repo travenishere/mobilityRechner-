@@ -13,6 +13,9 @@ public class GeneralTest {
 	
 	@Test
 	public void setAndGetStartDateTime() {
+		
+		LocalDateTime startDateTime = new LocalDateTime();
+		
 		fail("Not yet implemented");
 	}
 	
