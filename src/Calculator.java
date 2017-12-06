@@ -5,6 +5,9 @@
  */
 
 import java.util.*;
+
+import database.DBConnect;
+
 import java.sql.Connection;
 import java.text.*;
 import java.time.Duration;
@@ -14,8 +17,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Calculator {
+		
 	private LocalDateTime startDateTime; 
 	private LocalDateTime endDateTime; 
+	
 	private double timeAmount;  
 	public static double hrPrice;
 	private double kmAmount;
