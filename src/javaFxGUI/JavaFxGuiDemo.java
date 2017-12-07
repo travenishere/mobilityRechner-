@@ -35,7 +35,6 @@ public class JavaFxGuiDemo extends Application {
 		
 		
 		
-		
 		VBox inputLayout = new VBox(20);
 		
 		inputLayout.getChildren().addAll(label1, button);
