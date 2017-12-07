@@ -2,9 +2,12 @@ package javaFxGUI;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -35,29 +38,39 @@ public class JavaFxGuiDemo extends Application {
 		inputLayout.setVgap(8);
 		inputLayout.setHgap(10);
 		
-		// labels
+		// start date and time
 		Label startDateLabel = new Label("Startdatum");
 		GridPane.setConstraints(startDateLabel, 0, 0);
-		Label startTimeLabel = new Label("Startzeit");
-		GridPane.setConstraints(startTimeLabel, 2, 0);
-		Label endDateLabel = new Label("Enddatum");
-		GridPane.setConstraints(endDateLabel, 0, 1);
-		Label endTimeLabel = new Label("Endzeit");
-		GridPane.setConstraints(endTimeLabel, 2, 1);
-		
-		// text inputs
 		TextField startDateInput = new TextField("");
 		GridPane.setConstraints(startDateInput, 1, 0);
+		
+		Label startTimeLabel = new Label("Startzeit");
+		GridPane.setConstraints(startTimeLabel, 2, 0);
 		TextField startTimeInput = new TextField("");
 		GridPane.setConstraints(startTimeInput, 3, 0);
+		
+		// end date and time
+		Label endDateLabel = new Label("Enddatum");
+		GridPane.setConstraints(endDateLabel, 0, 1);
 		TextField endDateInput = new TextField("");
 		GridPane.setConstraints(endDateInput, 1, 1);
+		
+		Label endTimeLabel = new Label("Endzeit");
+		GridPane.setConstraints(endTimeLabel, 2, 1);
 		TextField endTimeInput = new TextField("");
 		GridPane.setConstraints(endTimeInput, 3, 1);
 		
+		// car type
+		Label carTypeLabel = new Label("Fahrzeugtyp");
+		GridPane.setConstraints(carTypeLabel, 0, 2);
+		
+		ChoiceBox<String> carTypeInput = new ChoiceBox<String>();
+		carTypeInput.getItems().addAll("Typ1", "Typ2", "Typ3");
+		GridPane.setConstraints(carTypeInput, 1, 2);
+		
 		// buttons
 		button = new Button("Berechnen");
-		GridPane.setConstraints(button, 3, 2);
+		GridPane.setConstraints(button, 3, 3);
 		button.setOnAction(e -> {
 			stage.setScene(resultScene);
 		});
@@ -73,8 +86,9 @@ public class JavaFxGuiDemo extends Application {
 				endDateInput,
 				endTimeLabel,
 				endTimeInput,
-				button);
-		
+				carTypeLabel,
+				carTypeInput,
+				button);		
 
 		inputScene = new Scene(inputLayout, 600, 300);
 		
