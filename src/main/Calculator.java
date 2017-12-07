@@ -8,6 +8,7 @@ package main;
 import java.util.*;
 
 import database.DBConnect;
+import hsqlDB.MobilityHSQLDB;
 
 import java.sql.Connection;
 import java.text.*;
@@ -26,13 +27,15 @@ public class Calculator {
 	public static double hrPrice;
 	private double kmAmount;
 	public static double kmPrice;  
-	private static DBConnect connect; 
+	//private static DBConnect connect; //MariaDB Connect
+	private static MobilityHSQLDB connect;
 	
 	/*
 	 * Creates new Calculator 
 	 */
 	public Calculator(){
-		connect = new DBConnect();
+		//connect = new DBConnect(); //MySQLDB Connect
+		connect = new MobilityHSQLDB();
 		startDateTime = null; 
 		endDateTime = null;
 		hrPrice = 0.00;
