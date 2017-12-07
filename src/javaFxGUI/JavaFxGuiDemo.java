@@ -1,12 +1,14 @@
 package javaFxGUI;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class JavaFxGuiDemo extends Application{
+public class JavaFxGuiDemo extends Application implements EventHandler<ActionEvent> {
 
 	
 	
@@ -34,5 +36,11 @@ public class JavaFxGuiDemo extends Application{
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	@Override
+	public void handle(ActionEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }
