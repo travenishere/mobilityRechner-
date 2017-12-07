@@ -1,4 +1,4 @@
-package gui;
+package hsqlDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

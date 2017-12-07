@@ -1,4 +1,4 @@
-package gui;
+package swingGUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
