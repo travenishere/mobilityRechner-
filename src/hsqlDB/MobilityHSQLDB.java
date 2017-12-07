@@ -109,7 +109,7 @@ public class MobilityHSQLDB {
 			System.out.println("Error: "+ ex);
 		}
 	}
-	
+	// TODO Fix for HSQL
 	public double getStdTarif(String id) {
 		double stdTar = 0.0;
 		try{
@@ -123,7 +123,7 @@ public class MobilityHSQLDB {
 		}
 		return stdTar;
 	}
-	
+	// TODO Fix for HSQL
 	public double getKmTarif(String id) {
 		double kmTar = 0.0;
 		try{
@@ -137,11 +137,5 @@ public class MobilityHSQLDB {
 		}
 		return kmTar;
 	}
-	
-	public static void main(String[] args){
-		new MobilityHSQLDB();
-	}
-	
-    
-   
+	 
 }
