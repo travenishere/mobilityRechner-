@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class JavaFxGuiDemo extends Application {
+	
+	int width = 530;
+	int height = 320;
 
 	Button button;
 	Scene inputScene, resultScene;
@@ -65,12 +68,14 @@ public class JavaFxGuiDemo extends Application {
 		GridPane.setConstraints(carTypeLabel, 0, 2);
 		
 		ChoiceBox<String> carTypeInput = new ChoiceBox<String>();
-		carTypeInput.getItems().addAll("Typ1", "Typ2", "Typ3");
+		
+		String[] carTypes = {"Typ1", "Typ2", "Typ3"};
+		carTypeInput.getItems().addAll(carTypes);
 		GridPane.setConstraints(carTypeInput, 1, 2);
 		
 		// buttons
 		button = new Button("Berechnen");
-		GridPane.setConstraints(button, 3, 3);
+		GridPane.setConstraints(button, 3, 2);
 		button.setOnAction(e -> {
 			stage.setScene(resultScene);
 		});
@@ -90,13 +95,13 @@ public class JavaFxGuiDemo extends Application {
 				carTypeInput,
 				button);		
 
-		inputScene = new Scene(inputLayout, 600, 300);
+		inputScene = new Scene(inputLayout, width, height);
 		
 		
 		Label label2 = new Label("Resultat");
 		StackPane resultLayout = new StackPane();
 		resultLayout.getChildren().add(label2);
-		resultScene = new Scene(resultLayout, 600, 300);
+		resultScene = new Scene(resultLayout, width, height);
 		
 		stage.setResizable(false);
 		stage.setScene(inputScene);
