@@ -87,6 +87,9 @@ public class MobilityHSQLDB {
      
     public void getCategories() {
 		try{
+			 con = DriverManager.getConnection(  
+		              "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+		     
 			Statement stmt = con.createStatement(); 
 			String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 			rs = stmt.executeQuery(sql); 
@@ -101,13 +104,12 @@ public class MobilityHSQLDB {
 
 		    // Statement schließen
 		    stmt.close(); 
-		    
-
-		}catch(Exception ex){
+		    }
+		catch(Exception ex){
 			System.out.println("Error: "+ ex);
 		}
 	}
-	
+	// TODO Fix for HSQL
 	public double getStdTarif(String id) {
 		double stdTar = 0.0;
 		try{
@@ -121,7 +123,7 @@ public class MobilityHSQLDB {
 		}
 		return stdTar;
 	}
-	
+	// TODO Fix for HSQL
 	public double getKmTarif(String id) {
 		double kmTar = 0.0;
 		try{
@@ -135,11 +137,5 @@ public class MobilityHSQLDB {
 		}
 		return kmTar;
 	}
-	
-	public static void main(String[] args){
-		new MobilityHSQLDB();
-	}
-	
-    
-   
+	 
 }
