@@ -1,22 +1,21 @@
 package javaFxGUI;
 
+import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class JavaFxGuiDemo extends Application {
 	
-	int width = 586;
+	int width = 615;
 	int height = 320;
 
 	Button button;
@@ -44,8 +43,12 @@ public class JavaFxGuiDemo extends Application {
 		// start date and time
 		Label startDateLabel = new Label("Startdatum");
 		GridPane.setConstraints(startDateLabel, 0, 0);
-		TextField startDateInput = new TextField("");
-		GridPane.setConstraints(startDateInput, 1, 0);
+		DatePicker startDatePicker = new DatePicker();
+		startDatePicker.setOnAction(e -> {
+			LocalDate date = startDatePicker.getValue();
+			System.err.println("Selected date: " + date);
+		});
+		GridPane.setConstraints(startDatePicker, 1, 0);
 		
 		Label startTimeLabel = new Label("Startzeit");
 		GridPane.setConstraints(startTimeLabel, 2, 0);
@@ -55,8 +58,12 @@ public class JavaFxGuiDemo extends Application {
 		// end date and time
 		Label endDateLabel = new Label("Enddatum");
 		GridPane.setConstraints(endDateLabel, 0, 1);
-		TextField endDateInput = new TextField("");
-		GridPane.setConstraints(endDateInput, 1, 1);
+		DatePicker endDatePicker = new DatePicker();
+		endDatePicker.setOnAction(e -> {
+			LocalDate date = endDatePicker.getValue();
+			System.err.println("Selected date: " + date);
+		});
+		GridPane.setConstraints(endDatePicker, 1, 1);
 		
 		Label endTimeLabel = new Label("Endzeit");
 		GridPane.setConstraints(endTimeLabel, 2, 1);
@@ -81,11 +88,11 @@ public class JavaFxGuiDemo extends Application {
 		// add to layout
 		inputLayout.getChildren().addAll(
 				startDateLabel, 
-				startDateInput, 
+				startDatePicker, 
 				startTimeLabel, 
 				startTimeInput, 
 				endDateLabel,
-				endDateInput,
+				endDatePicker,
 				endTimeLabel,
 				endTimeInput,
 				carTypeLabel,
