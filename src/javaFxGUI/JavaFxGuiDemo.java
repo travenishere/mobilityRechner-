@@ -10,17 +10,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class JavaFxGuiDemo extends Application {
+	
+	private Image icon;
 	
 	int width = 615;
 	int height = 320;
 
 	Button button;
 	Scene inputScene;
-	
+
+	public JavaFxGuiDemo() {
+		
+		icon = new Image("file:resources/car.png");
+		
+	}
 	
 	public static void main(String[] args) {
 		
@@ -32,6 +40,7 @@ public class JavaFxGuiDemo extends Application {
 	public void start(Stage stage) throws Exception {
 		
 		stage.setTitle("Mobility Rechner");
+		stage.getIcons().add(icon);
 		
 		
 		// layout
@@ -103,7 +112,11 @@ public class JavaFxGuiDemo extends Application {
 		inputScene = new Scene(inputLayout, width, height);
 		
 		stage.setResizable(false);
+		inputScene.getStylesheets().add
+		 (JavaFxGuiDemo.class.getResource("style.css").toExternalForm());
+		
 		stage.setScene(inputScene);
+		
 		stage.show();
 	}
 }
