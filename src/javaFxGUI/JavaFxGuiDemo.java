@@ -16,11 +16,11 @@ import javafx.stage.Stage;
 
 public class JavaFxGuiDemo extends Application {
 	
-	int width = 530;
+	int width = 586;
 	int height = 320;
 
 	Button button;
-	Scene inputScene, resultScene;
+	Scene inputScene;
 	
 	
 	public static void main(String[] args) {
@@ -63,25 +63,22 @@ public class JavaFxGuiDemo extends Application {
 		TextField endTimeInput = new TextField("");
 		GridPane.setConstraints(endTimeInput, 3, 1);
 		
+		// distance
+		Label distanceLabel = new Label("Anzahl Kilometer");
+		GridPane.setConstraints(distanceLabel, 0, 2);
+		TextField distanceInput = new TextField("");
+		GridPane.setConstraints(distanceInput, 1, 2);
+		
 		// car type
 		Label carTypeLabel = new Label("Fahrzeugtyp");
-		GridPane.setConstraints(carTypeLabel, 0, 2);
+		GridPane.setConstraints(carTypeLabel, 2, 2);
 		
 		ChoiceBox<String> carTypeInput = new ChoiceBox<String>();
-		
 		String[] carTypes = {"Typ1", "Typ2", "Typ3"};
 		carTypeInput.getItems().addAll(carTypes);
-		GridPane.setConstraints(carTypeInput, 1, 2);
+		GridPane.setConstraints(carTypeInput, 3, 2);
 		
-		// buttons
-		button = new Button("Berechnen");
-		GridPane.setConstraints(button, 3, 2);
-		button.setOnAction(e -> {
-			stage.setScene(resultScene);
-		});
-		/* button.setOnAction(e -> System.out.println("Hello World!")}); */
-		
-		
+		// add to layout
 		inputLayout.getChildren().addAll(
 				startDateLabel, 
 				startDateInput, 
@@ -93,15 +90,10 @@ public class JavaFxGuiDemo extends Application {
 				endTimeInput,
 				carTypeLabel,
 				carTypeInput,
-				button);		
+				distanceLabel,
+				distanceInput);		
 
 		inputScene = new Scene(inputLayout, width, height);
-		
-		
-		Label label2 = new Label("Resultat");
-		StackPane resultLayout = new StackPane();
-		resultLayout.getChildren().add(label2);
-		resultScene = new Scene(resultLayout, width, height);
 		
 		stage.setResizable(false);
 		stage.setScene(inputScene);
