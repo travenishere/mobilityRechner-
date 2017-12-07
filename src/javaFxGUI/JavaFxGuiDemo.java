@@ -8,14 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class JavaFxGuiDemo extends Application implements EventHandler<ActionEvent> {
+public class JavaFxGuiDemo extends Application {
 
-	
+	Button button;
 	
 	
 	public static void main(String[] args) {
-		
-		System.out.println("Hello World!");
 		
 		launch(args);
 		
@@ -26,7 +24,8 @@ public class JavaFxGuiDemo extends Application implements EventHandler<ActionEve
 		
 		primaryStage.setTitle("Mobility Rechner");
 		
-		Button button = new Button("Berechnen");
+		button = new Button("Berechnen");
+		button.setOnAction(e -> System.out.println("Hello World!"));
 		
 		StackPane layout = new StackPane();
 		
@@ -36,11 +35,5 @@ public class JavaFxGuiDemo extends Application implements EventHandler<ActionEve
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-
-	@Override
-	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-		
 	}
 }
