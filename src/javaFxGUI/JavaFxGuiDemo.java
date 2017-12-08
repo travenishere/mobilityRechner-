@@ -9,8 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -42,9 +46,21 @@ public class JavaFxGuiDemo extends Application {
 		stage.setTitle("Mobility Rechner");
 		stage.getIcons().add(icon);
 		
+		// menu bar
+		MenuBar menuBar = new MenuBar();
+		Menu fileMenu = new Menu("File");
+		MenuItem newItem = new MenuItem("New");
+		fileMenu.getItems().addAll(newItem);
+		menuBar.getMenus().addAll(fileMenu);
+		 
+		BorderPane root = new BorderPane();
+	    root.setTop(menuBar);
 		
 		// layout
 		GridPane inputLayout = new GridPane();
+		root.setCenter(inputLayout);
+		
+		
 		inputLayout.setPadding(new Insets(10, 10, 10, 10));
 		inputLayout.setVgap(8);
 		inputLayout.setHgap(10);
@@ -109,7 +125,7 @@ public class JavaFxGuiDemo extends Application {
 				distanceLabel,
 				distanceInput);		
 
-		inputScene = new Scene(inputLayout, width, height);
+		inputScene = new Scene(root, width, height);
 		
 		stage.setResizable(false);
 		inputScene.getStylesheets().add
