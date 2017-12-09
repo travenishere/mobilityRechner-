@@ -1,6 +1,7 @@
 package javaFxGUI;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import main.Car;
 
 public class JavaFxGuiDemo extends Application {
 	
@@ -65,13 +67,23 @@ public class JavaFxGuiDemo extends Application {
 		inputLayout.setVgap(8);
 		inputLayout.setHgap(10);
 		
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		
 		// start date and time
 		Label startDateLabel = new Label("Startdatum");
 		GridPane.setConstraints(startDateLabel, 0, 0);
 		DatePicker startDatePicker = new DatePicker();
+		DatePicker endDatePicker = new DatePicker();
 		startDatePicker.setOnAction(e -> {
-			LocalDate date = startDatePicker.getValue();
-			System.err.println("Selected date: " + date);
+			LocalDate startDate = startDatePicker.getValue();
+			
+			LocalDate endDate = endDatePicker.getValue();
+			if(endDate == null || endDate.isBefore(startDate)) {
+				endDatePicker.setValue(startDate);
+			}
+			
+			System.err.println("Selected date: " + startDate);
 		});
 		GridPane.setConstraints(startDatePicker, 1, 0);
 		
@@ -83,7 +95,7 @@ public class JavaFxGuiDemo extends Application {
 		// end date and time
 		Label endDateLabel = new Label("Enddatum");
 		GridPane.setConstraints(endDateLabel, 0, 1);
-		DatePicker endDatePicker = new DatePicker();
+		
 		endDatePicker.setOnAction(e -> {
 			LocalDate date = endDatePicker.getValue();
 			System.err.println("Selected date: " + date);
@@ -106,7 +118,7 @@ public class JavaFxGuiDemo extends Application {
 		GridPane.setConstraints(carTypeLabel, 2, 2);
 		
 		ChoiceBox<String> carTypeInput = new ChoiceBox<String>();
-		String[] carTypes = {"Typ1", "Typ2", "Typ3"};
+		String[] carTypes = Car.getCategoryNames();
 		carTypeInput.getItems().addAll(carTypes);
 		GridPane.setConstraints(carTypeInput, 3, 2);
 		
