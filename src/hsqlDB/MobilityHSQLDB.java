@@ -13,6 +13,7 @@ public class MobilityHSQLDB {
 	private Connection con; 
 	private Statement st;
 	private ResultSet rs;
+	
 
     public MobilityHSQLDB()
     {
@@ -32,6 +33,7 @@ public class MobilityHSQLDB {
   
     try
     { 
+    	//TODO Lockprolematik pruefen: https://stackoverflow.com/questions/3968595/database-lock-acquisition-failure-and-hsqldb 
       con = DriverManager.getConnection(  
               "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
       //Statement stmt = con.createStatement(); 
@@ -52,7 +54,7 @@ public class MobilityHSQLDB {
   
       // Statement schließen
       stmt.close(); 
-      */
+      
   	Statement stmt = con.createStatement(); 
 	String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 	rs = stmt.executeQuery(sql); 
@@ -61,12 +63,14 @@ public class MobilityHSQLDB {
 		String name = rs.getString("FZKAT_Name");
 		String preis = rs.getString("TAR_STD");
 		System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );      
+		
     } 
 	// Resultset schließen
     rs.close(); 
 
     // Statement schließen
     stmt.close(); 
+    */
     }
     catch ( SQLException e ) 
     { 
@@ -87,9 +91,8 @@ public class MobilityHSQLDB {
      
     public void getCategories() {
 		try{
-			 con = DriverManager.getConnection(  
-		              "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
-		     
+			//TODO Check if duplicating the initializing of con in each method can by eliminated
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 		     
 			Statement stmt = con.createStatement(); 
 			String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 			rs = stmt.executeQuery(sql); 
@@ -99,40 +102,47 @@ public class MobilityHSQLDB {
 				String preis = rs.getString("TAR_STD");
 				System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );      
 		    } 
-			// Resultset schließen
 		    rs.close(); 
-
-		    // Statement schließen
 		    stmt.close(); 
 		    }
 		catch(Exception ex){
 			System.out.println("Error: "+ ex);
 		}
 	}
-	// TODO Fix for HSQL
+    
 	public double getStdTarif(String id) {
 		double stdTar = 0.0;
 		try{
-			String query = "Select TAR_STD from mr_tarife where mr_tarife.FZKat_ID = "+id; 
-			rs = st.executeQuery(query);
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+			Statement stmt = con.createStatement(); 
+			String sql = "Select TAR_STD from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
+			rs = stmt.executeQuery(sql); 
 			while(rs.next()){
 				stdTar = Double.parseDouble(rs.getString("TAR_STD")); 				
 			}
-		} catch(Exception ex){
+		    rs.close(); 
+		    stmt.close(); 
+		} 
+		catch(Exception ex){
 			System.out.println("Error: "+ex);
 		}
 		return stdTar;
 	}
-	// TODO Fix for HSQL
-	public double getKmTarif(String id) {
+	
+	public double getKmTarif(String id) {		
 		double kmTar = 0.0;
 		try{
-			String query = "Select TAR_KM from mr_tarife where mr_tarife.FZKat_ID = "+id; 
-			rs = st.executeQuery(query);
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+			Statement stmt = con.createStatement(); 
+			String sql = "Select TAR_KM from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
+			rs = st.executeQuery(sql);
 			while(rs.next()){
 				kmTar = Double.parseDouble(rs.getString("TAR_KM")); 				
 			}
-		} catch(Exception ex){
+		    rs.close(); 
+		    stmt.close(); 
+		} 
+		catch(Exception ex){
 			System.out.println("Error: "+ex);
 		}
 		return kmTar;

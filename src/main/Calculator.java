@@ -39,7 +39,7 @@ public class Calculator {
 		startDateTime = null; 
 		endDateTime = null;
 		hrPrice = 0.00;
-		kmPrice = 0.00;
+		kmPrice = 10.00;
 		kmAmount = 5.5; //Will later on be set correctly, as for now fixed.
 		
 	}
