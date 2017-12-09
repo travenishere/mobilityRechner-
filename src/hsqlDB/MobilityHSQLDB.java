@@ -1,5 +1,6 @@
 package hsqlDB;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ public class MobilityHSQLDB {
 	private static Connection con; 
 	private Statement st;
 	private static ResultSet rs;
+	private static String[] categoryList; 
 	
 
     public MobilityHSQLDB()
@@ -101,7 +103,7 @@ public class MobilityHSQLDB {
 				String id = rs.getString("FZKAT_ID");
 				String name = rs.getString("FZKAT_Name");
 				String preis = rs.getString("TAR_STD");
-				System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );      
+				 System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );    
 		    } 
 		    rs.close(); 
 		    stmt.close(); 
@@ -129,8 +131,7 @@ public class MobilityHSQLDB {
 			}
 			car = new Car(id,name, stdTar, kmTar);
 		    rs.close(); 
-		    stmt.close(); 
-		    System.out.println(con);
+		    stmt.close(); 		    
 		} 
 		catch(Exception ex){
 			System.out.println("Error: "+ex);
@@ -138,24 +139,29 @@ public class MobilityHSQLDB {
 		return car;
 	}
 	
-	public double getKmTarif(int id) {		
-		double kmTar = 0.0;
+    public static String[] getCategoryList() {
 		try{
-			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false;shutdown=true", "root", "" ); 
+			//TODO Check if duplicating the initializing of con in each method can by eliminated
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false; shutdown=true", "root", "" ); 		     
 			Statement stmt = con.createStatement(); 
-			String sql = "Select TAR_KM from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
-			rs = st.executeQuery(sql);
-			while(rs.next()){
-				kmTar = Double.parseDouble(rs.getString("TAR_KM")); 				
+			String sql = "SELECT FZKAT_Name FROM mr_fzkat";
+			rs = stmt.executeQuery(sql); 
+			categoryList= new String[9]; //TODO Generate method that evalutes nr. of categories			
+			int i = 0;	
+			while (rs.next()){					
+				categoryList[i] = rs.getString("FZKAT_Name");
+			i++;
 			}
+			 
+			 
 		    rs.close(); 
 		    stmt.close(); 
-		} 
+		    
+		    }
 		catch(Exception ex){
-			System.out.println(con);
-			System.out.println("Error: "+ex);
+			System.out.println("Error: "+ ex);
 		}
-		return kmTar;
+		return categoryList; 
 	}
-	 
+    	 
 }

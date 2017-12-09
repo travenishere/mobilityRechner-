@@ -73,5 +73,7 @@ public class Car {
 		return kmPrice;
 	}
 	
-	
+	public static String[] getCategoryNames() {
+		return connect.getCategoryList();
+	}
 }
