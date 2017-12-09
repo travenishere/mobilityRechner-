@@ -1,6 +1,7 @@
 package javaFxGUI;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javafx.application.Application;
@@ -97,8 +98,9 @@ public class JavaFxGuiDemo extends Application {
 		GridPane.setConstraints(endDateLabel, 0, 1);
 		
 		endDatePicker.setOnAction(e -> {
-			LocalDate date = endDatePicker.getValue();
-			System.err.println("Selected date: " + date);
+			LocalDate endDate = endDatePicker.getValue();
+			
+			System.err.println("Selected date: " + endDate);
 		});
 		GridPane.setConstraints(endDatePicker, 1, 1);
 		
