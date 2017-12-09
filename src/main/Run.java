@@ -21,6 +21,8 @@ public class Run {
 		
 		// choose category
 		c1.chooseCategory();
+		c1.setHrTarif();
+		c1.setKmTarif();
 		
 		// calculate hours
 		c1.calculateHours();

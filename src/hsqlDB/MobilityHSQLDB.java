@@ -34,8 +34,7 @@ public class MobilityHSQLDB {
     try
     { 
     	//TODO Lockprolematik pruefen: https://stackoverflow.com/questions/3968595/database-lock-acquisition-failure-and-hsqldb 
-      con = DriverManager.getConnection(  
-              "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+      con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
       //Statement stmt = con.createStatement(); 
   /*
       // Alle Kunden ausgeben
@@ -92,7 +91,7 @@ public class MobilityHSQLDB {
     public void getCategories() {
 		try{
 			//TODO Check if duplicating the initializing of con in each method can by eliminated
-			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 		     
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false; shutdown=true", "root", "" ); 		     
 			Statement stmt = con.createStatement(); 
 			String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 			rs = stmt.executeQuery(sql); 
@@ -110,10 +109,10 @@ public class MobilityHSQLDB {
 		}
 	}
     
-	public double getStdTarif(String id) {
+	public double getStdTarif(int id) {
 		double stdTar = 0.0;
 		try{
-			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false;shutdown=true", "root", "" ); 
 			Statement stmt = con.createStatement(); 
 			String sql = "Select TAR_STD from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
 			rs = stmt.executeQuery(sql); 
@@ -129,10 +128,10 @@ public class MobilityHSQLDB {
 		return stdTar;
 	}
 	
-	public double getKmTarif(String id) {		
+	public double getKmTarif(int id) {		
 		double kmTar = 0.0;
 		try{
-			con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home;  hsqldb.lock_file=false;shutdown=true", "root", "" ); 
 			Statement stmt = con.createStatement(); 
 			String sql = "Select TAR_KM from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
 			rs = st.executeQuery(sql);
