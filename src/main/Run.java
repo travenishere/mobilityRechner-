@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 public class Run {
 	
 	public static void main(String[] args) {
-		
 		Calculator c1 = new Calculator();
+		Car car = new Car();
 		
 		// TODO implement functions within the Class Calculator for the following functionalities
 		
@@ -19,10 +19,9 @@ public class Run {
 		c1.setEndDateTime(c1.readInput("ending reservation"));
 				
 		
-		// choose category
-		c1.chooseCategory();
-		c1.setHrTarif();
-		c1.setKmTarif();
+		// set car by choosing a category
+		car = new Car(Car.chooseCategory());
+		
 		
 		// calculate hours
 		c1.calculateHours();

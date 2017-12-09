@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import main.Car;
+
 
 
 
 public class MobilityHSQLDB {
-	private Connection con; 
+	private static Connection con; 
 	private Statement st;
-	private ResultSet rs;
+	private static ResultSet rs;
 	
 
     public MobilityHSQLDB()
@@ -88,7 +90,7 @@ public class MobilityHSQLDB {
     } 
     }
      
-    public void getCategories() {
+    public static void getCategories() {
 		try{
 			//TODO Check if duplicating the initializing of con in each method can by eliminated
 			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false; shutdown=true", "root", "" ); 		     
@@ -109,29 +111,37 @@ public class MobilityHSQLDB {
 		}
 	}
     
-	public double getStdTarif(int id) {
-		double stdTar = 0.0;
+	
+    public Car getCarDetails(int id) {
+    	String name = "null";
+    	double stdTar = 0.0;
+		double kmTar = 0.0;
+		Car car = new Car();
 		try{
 			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false;shutdown=true", "root", "" ); 
 			Statement stmt = con.createStatement(); 
-			String sql = "Select TAR_STD from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
+			String sql = "SELECT f.FZKAT_Name, t.TAR_STD, t.TAR_KM FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID WHERE f.FZKAT_ID = "+id; 
 			rs = stmt.executeQuery(sql); 
 			while(rs.next()){
-				stdTar = Double.parseDouble(rs.getString("TAR_STD")); 				
+				name = rs.getString("FZKAT_Name");
+				stdTar = Double.parseDouble(rs.getString("TAR_STD"));
+				kmTar = Double.parseDouble(rs.getString("TAR_KM")); 				
 			}
+			car = new Car(id,name, stdTar, kmTar);
 		    rs.close(); 
 		    stmt.close(); 
+		    System.out.println(con);
 		} 
 		catch(Exception ex){
 			System.out.println("Error: "+ex);
 		}
-		return stdTar;
+		return car;
 	}
 	
 	public double getKmTarif(int id) {		
 		double kmTar = 0.0;
 		try{
-			con = DriverManager.getConnection("jdbc:hsqldb:file:home;  hsqldb.lock_file=false;shutdown=true", "root", "" ); 
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false;shutdown=true", "root", "" ); 
 			Statement stmt = con.createStatement(); 
 			String sql = "Select TAR_KM from mr_tarife where mr_tarife.FZKAT_ID = "+id; 
 			rs = st.executeQuery(sql);
@@ -142,6 +152,7 @@ public class MobilityHSQLDB {
 		    stmt.close(); 
 		} 
 		catch(Exception ex){
+			System.out.println(con);
 			System.out.println("Error: "+ex);
 		}
 		return kmTar;
