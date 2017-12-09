@@ -1,18 +1,23 @@
 package hsqlDB;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import main.Car;
+
 
 
 
 public class MobilityHSQLDB {
-	private Connection con; 
+	private static Connection con; 
 	private Statement st;
-	private ResultSet rs;
+	private static ResultSet rs;
+	private static String[] categoryList; 
+	
 
     public MobilityHSQLDB()
     {
@@ -32,8 +37,8 @@ public class MobilityHSQLDB {
   
     try
     { 
-      con = DriverManager.getConnection(  
-              "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
+    	//TODO Lockprolematik pruefen: https://stackoverflow.com/questions/3968595/database-lock-acquisition-failure-and-hsqldb 
+      con = DriverManager.getConnection("jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
       //Statement stmt = con.createStatement(); 
   /*
       // Alle Kunden ausgeben
@@ -52,7 +57,7 @@ public class MobilityHSQLDB {
   
       // Statement schließen
       stmt.close(); 
-      */
+      
   	Statement stmt = con.createStatement(); 
 	String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 	rs = stmt.executeQuery(sql); 
@@ -61,12 +66,14 @@ public class MobilityHSQLDB {
 		String name = rs.getString("FZKAT_Name");
 		String preis = rs.getString("TAR_STD");
 		System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );      
+		
     } 
 	// Resultset schließen
     rs.close(); 
 
     // Statement schließen
     stmt.close(); 
+    */
     }
     catch ( SQLException e ) 
     { 
@@ -85,11 +92,10 @@ public class MobilityHSQLDB {
     } 
     }
      
-    public void getCategories() {
+    public static void getCategories() {
 		try{
-			 con = DriverManager.getConnection(  
-		              "jdbc:hsqldb:file:home; shutdown=true", "root", "" ); 
-		     
+			//TODO Check if duplicating the initializing of con in each method can by eliminated
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false; shutdown=true", "root", "" ); 		     
 			Statement stmt = con.createStatement(); 
 			String sql = "SELECT f.FZKAT_ID, f.FZKAT_Name, t.TAR_STD  FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID";
 			rs = stmt.executeQuery(sql); 
@@ -97,45 +103,65 @@ public class MobilityHSQLDB {
 				String id = rs.getString("FZKAT_ID");
 				String name = rs.getString("FZKAT_Name");
 				String preis = rs.getString("TAR_STD");
-				System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );      
+				 System.out.println("Nr: " + id+ " Category: "+name + " ("+preis+"sFr./h)" );    
 		    } 
-			// Resultset schließen
 		    rs.close(); 
-
-		    // Statement schließen
 		    stmt.close(); 
 		    }
 		catch(Exception ex){
 			System.out.println("Error: "+ ex);
 		}
 	}
-	// TODO Fix for HSQL
-	public double getStdTarif(String id) {
-		double stdTar = 0.0;
-		try{
-			String query = "Select TAR_STD from mr_tarife where mr_tarife.FZKat_ID = "+id; 
-			rs = st.executeQuery(query);
-			while(rs.next()){
-				stdTar = Double.parseDouble(rs.getString("TAR_STD")); 				
-			}
-		} catch(Exception ex){
-			System.out.println("Error: "+ex);
-		}
-		return stdTar;
-	}
-	// TODO Fix for HSQL
-	public double getKmTarif(String id) {
+    
+	
+    public Car getCarDetails(int id) {
+    	String name = "null";
+    	double stdTar = 0.0;
 		double kmTar = 0.0;
+		Car car = new Car();
 		try{
-			String query = "Select TAR_KM from mr_tarife where mr_tarife.FZKat_ID = "+id; 
-			rs = st.executeQuery(query);
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false;shutdown=true", "root", "" ); 
+			Statement stmt = con.createStatement(); 
+			String sql = "SELECT f.FZKAT_Name, t.TAR_STD, t.TAR_KM FROM mr_fzkat as f INNER JOIN mr_tarife as t ON t.FZKat_ID = f.FZKAT_ID WHERE f.FZKAT_ID = "+id; 
+			rs = stmt.executeQuery(sql); 
 			while(rs.next()){
+				name = rs.getString("FZKAT_Name");
+				stdTar = Double.parseDouble(rs.getString("TAR_STD"));
 				kmTar = Double.parseDouble(rs.getString("TAR_KM")); 				
 			}
-		} catch(Exception ex){
+			car = new Car(id,name, stdTar, kmTar);
+		    rs.close(); 
+		    stmt.close(); 		    
+		} 
+		catch(Exception ex){
 			System.out.println("Error: "+ex);
 		}
-		return kmTar;
+		return car;
 	}
-	 
+	
+    public static String[] getCategoryList() {
+		try{
+			//TODO Check if duplicating the initializing of con in each method can by eliminated
+			con = DriverManager.getConnection("jdbc:hsqldb:file:home; hsqldb.lock_file=false; shutdown=true", "root", "" ); 		     
+			Statement stmt = con.createStatement(); 
+			String sql = "SELECT FZKAT_Name FROM mr_fzkat";
+			rs = stmt.executeQuery(sql); 
+			categoryList= new String[9]; //TODO Generate method that evalutes nr. of categories			
+			int i = 0;	
+			while (rs.next()){					
+				categoryList[i] = rs.getString("FZKAT_Name");
+			i++;
+			}
+			 
+			 
+		    rs.close(); 
+		    stmt.close(); 
+		    
+		    }
+		catch(Exception ex){
+			System.out.println("Error: "+ ex);
+		}
+		return categoryList; 
+	}
+    	 
 }

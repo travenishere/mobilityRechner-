@@ -7,10 +7,12 @@ public class Run {
 	public static void main(String[] args) {
 		
 		Calculator c1 = new Calculator();
+		Car car = new Car();
 		
 		// TODO implement functions within the Class Calculator for the following functionalities
 		
 		
+	    
 		// start date time
 		c1.setStartDateTime(c1.readInput("starting reservation"));
 				
@@ -19,8 +21,9 @@ public class Run {
 		c1.setEndDateTime(c1.readInput("ending reservation"));
 				
 		
-		// choose category
-		c1.chooseCategory();
+		// set car by choosing a category
+		car = new Car(Car.chooseCategory());
+		
 		
 		// calculate hours
 		c1.calculateHours();
