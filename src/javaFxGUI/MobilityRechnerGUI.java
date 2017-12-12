@@ -25,6 +25,7 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 	Button b3goScene1;
 	Button b4alertUser;
 	Button b5monthCalc;
+	Button b6saveClose;
 	Scene scene1, scene2; 
 	
 	public static void main (String[]args){
@@ -34,6 +35,12 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 	@Override
 	public void start(Stage window) throws Exception{
 		window.setTitle("Mobility Rechner");
+		
+		window.setOnCloseRequest(e-> {
+			e.consume(); //consuming means, that we going to take over the close request, so we can handle it manually 
+			saveClose();	
+		});
+		
 		b1berechne = new Button("Berechne Fahrt");
 		b2goScene2 = new Button("Übersicht anzeigen"); 		
 		b2goScene2.setOnAction(e -> window.setScene(scene2));
@@ -52,6 +59,8 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 				System.out.println("Einzelberechnung durchführen");				
 			}
 		});
+		b6saveClose = new Button("Save and exit");
+		b6saveClose.setOnAction(e->saveClose());
 
 		
 		/////////////////
@@ -60,8 +69,8 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 		
 		// Layout1: Children are laid out in vertical column  
 		VBox layout1 = new VBox(20); //20=> 20px being spaced out between children
-		layout1.getChildren().addAll(label1, b2goScene2, b4alertUser, b5monthCalc); //when more than 1 element to add to layout
-		scene1 = new Scene( layout1,200,200);
+		layout1.getChildren().addAll(label1, b2goScene2, b4alertUser, b5monthCalc, b6saveClose); //when more than 1 element to add to layout
+		scene1 = new Scene( layout1,400,400);
 		
 		StackPane layout2 = new StackPane(); //doesn't need any parameters 
 		layout2.getChildren().addAll(label2, b3goScene1);
@@ -103,6 +112,13 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 		window.show();
 	}
 	
+	private void saveClose(){
+		boolean answer = ConfirmBox.display("Warnung","Wirklich abbrechen");
+		if (answer){
+			window.close(); //TODO FIX NULLPOINTER!!!!!!!!!!!!
+		}
+
+	}
 	
 
 }
