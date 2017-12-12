@@ -24,6 +24,7 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 	Button b2goScene2;
 	Button b3goScene1;
 	Button b4alertUser;
+	Button b5monthCalc;
 	Scene scene1, scene2; 
 	
 	public static void main (String[]args){
@@ -42,6 +43,15 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 		Label label2 = new Label("Übersicht der Kategorien und Preise"); //Label = static text 
 		b4alertUser = new Button("Abonnementtyp wählen");
 		b4alertUser.setOnAction(e-> AlertBox.display("Abonnementtyp wählen!", "Aktuell noch nicht implementiert"));
+		b5monthCalc = new Button("Monatsbrechnung durchführen");
+		b5monthCalc.setOnAction(e-> { 
+			boolean multCalc = ConfirmBox.display("Monatsrechner", "Monatrechnung erstellen");
+			if (multCalc){
+				System.out.println("Monatberechnung durchführen");				
+			} else {
+				System.out.println("Einzelberechnung durchführen");				
+			}
+		});
 
 		
 		/////////////////
@@ -50,7 +60,7 @@ public class MobilityRechnerGUI extends Application { //implements EventHandler<
 		
 		// Layout1: Children are laid out in vertical column  
 		VBox layout1 = new VBox(20); //20=> 20px being spaced out between children
-		layout1.getChildren().addAll(label1, b2goScene2, b4alertUser); //when more than 1 element to add to layout
+		layout1.getChildren().addAll(label1, b2goScene2, b4alertUser, b5monthCalc); //when more than 1 element to add to layout
 		scene1 = new Scene( layout1,200,200);
 		
 		StackPane layout2 = new StackPane(); //doesn't need any parameters 
